@@ -53,8 +53,8 @@ public class Menu {
 
     public static void showAdminSubMenu() {
         System.out.println("=============== ADMIN SUB-MENU PAGE ===============");
-        System.out.println("1. Add Product\n2. List Product\n3. Search Product\n4. Remove Product\n5. Update Product\n" +
-                "6. See Registered Customers\n7. Show Total Revenue\n8. Return Admin-Main Menu\nQ. QUIT");
+        System.out.println("1. Add Product\n2. List Product\n3. Remove Product\n4. Update Product\n" +
+                "5. See Registered Customers\n6. Show Total Revenue\n7. Return Admin-Main Menu\nQ. QUIT");
         System.out.println("Please select the action you want:");
         String userInp = input.next().toUpperCase();
         do {
@@ -65,21 +65,18 @@ public class Menu {
                 AdminMethods.listProducts();
                 break;
             } else if (userInp.equals("3")) {
-                AdminMethods.searchProduct();
+                AdminMethods.removeProduct("Remove");
                 break;
             } else if (userInp.equals("4")) {
-                AdminMethods.removeProduct();
+                AdminMethods.updateProduct("Update");
                 break;
             } else if (userInp.equals("5")) {
-                AdminMethods.updateProduct();
-                break;
-            } else if (userInp.equals("6")) {
                 AdminMethods.showRegisteredCustomers();
                 break;
-            } else if (userInp.equals("7")) {
+            } else if (userInp.equals("6")) {
                 AdminMethods.showRevenue();
                 break;
-            } else if (userInp.equals("8")) {
+            } else if (userInp.equals("7")) {
                 showAdminMainMenu();
                 break;
             } else if (userInp.equals("Q")) {
@@ -93,13 +90,18 @@ public class Menu {
     }
 
     public static void adminMiniMenu(String type) {
-        System.out.println("1. " + type + " More\n" +
+        System.out.println("1. " + type + " More Product\n" +
                 "2. Return to Sub Menu");
         String userInp = input.next();
         do {
             if (userInp.equals("1")) {
-                AdminMethods.addProduct();
-                break;
+                if (type.equals("Add")) {
+                    AdminMethods.addProduct();
+                    break;
+                } else if (type.equals("Remove")) {
+                    AdminMethods.removeProduct(type);
+                    break;
+                }
             } else if (userInp.equals("2")) {
                 showAdminSubMenu();
                 break;
@@ -107,6 +109,30 @@ public class Menu {
                 System.out.println("Invalid user input... Please try again.");
             }
         } while (true);
+
+    }
+
+    public static void showAdminUpdateProductMenu(int productID) {
+        System.out.println("1. Update Product Name\n" +
+                "2. Update Product Price\n" +
+                "3. Update Product Category\n" +
+                "4. Update Product Stock\n" +
+                "5. Return to Sub Menu");
+        String userInp = input.next();
+        if (userInp.equals("1")) {
+            AdminMethods.updateProductInfo(AdminMethods.productsDatabase.get(productID), "name");
+        } else if (userInp.equals("2")) {
+            AdminMethods.updateProductInfo(AdminMethods.productsDatabase.get(productID), "price");
+        } else if (userInp.equals("3")) {
+            AdminMethods.updateProductInfo(AdminMethods.productsDatabase.get(productID), "category");
+        } else if (userInp.equals("4")) {
+            AdminMethods.updateProductInfo(AdminMethods.productsDatabase.get(productID), "stock count");
+        } else if (userInp.equals("5")) {
+            showAdminSubMenu();
+        } else {
+            System.out.println("Invalid user input... Please try again.");
+            showAdminUpdateProductMenu(productID);
+        }
 
     }
 

@@ -26,22 +26,69 @@ public class AdminMethods {
 
     public static void listProducts() {
         System.out.println("=============== ADMIN PRODUCT LIST PAGE ===============");
-        System.out.println("---------------------------# PRODUCT LIST #--------------------------------------------------------");
-        System.out.println("ID           Name                  Price                 Category            Stock Count" +
-                "\n-----------------------------------------------------------------------------------------------------------------");
-        for (ProductPojo w : allProducts) {
-            System.out.printf("%-12s %-21s %-21s %-21s %-21s\n", w.getProductID(), w.getName(), w.getPrice(), w.getCategory(), w.getStockCount());
+        if (productsDatabase.isEmpty()) {
+            System.out.println("There are no products in stocks now!");
+        } else {
+            System.out.println("---------------------------# PRODUCT LIST #--------------------------------------------------------");
+            System.out.println("ID           Name                  Price                 Category            Stock Count" +
+                    "\n-----------------------------------------------------------------------------------------------------------------");
+            for (ProductPojo w : allProducts) {
+                System.out.printf("%-12s %-21s %-21s %-21s %-21s\n", w.getProductID(), w.getName(), w.getPrice(), w.getCategory(), w.getStockCount());
+            }
         }
         Menu.showAdminSubMenu();
     }
 
-    public static void searchProduct() {
+    public static void removeProduct(String type) {
+        showHeader(type);
+        int userInput = input.nextInt();
+        if (productsDatabase.containsKey(userInput)) {
+            productsDatabase.remove(userInput);
+            System.out.println("Product has been removed successfully");
+            allProducts.remove(productsDatabase.get(userInput));//Once collection'dan sildim, yer kaplamasin diye...
+            productsDatabase.remove(userInput);//Sonra komple urun veritabanindan sildim...
+            Menu.adminMiniMenu("Remove");
+        } else {
+            System.out.println("Product not found!");
+            Menu.adminMiniMenu("Remove");
+        }
     }
 
-    public static void removeProduct() {
+    public static void updateProduct(String type) {
+        showHeader(type);
+        int userInput = input.nextInt();
+        if (productsDatabase.containsKey(userInput)) {
+            Menu.showAdminUpdateProductMenu(userInput);
+        } else {
+            System.out.println("Product not found!");
+            Menu.adminMiniMenu("Remove");
+        }
     }
 
-    public static void updateProduct() {
+    public static void updateProductInfo(ProductPojo product, String type) {
+        if (type.equals("name")) {
+            System.out.println("The current " + type + " is " + product.getName());
+            System.out.println("Please enter a new " + type + " for this product ");
+            String userInp = input.next();
+            product.setName(userInp);
+        } else if (type.equals("price")) {
+            System.out.println("The current " + type + " is " + product.getPrice());
+            System.out.println("Please enter a new " + type + " for this product ");
+            double userInp = input.nextDouble();
+            product.setPrice(userInp);
+        } else if (type.equals("category")) {
+            System.out.println("The current " + type + " is " + product.getCategory());
+            System.out.println("Please enter a new " + type + " for this product ");
+            String userInp = input.next();
+            product.setCategory(userInp);
+        } else if (type.equals("stock count")) {
+            System.out.println("The current " + type + " is " + product.getStockCount());
+            System.out.println("Please enter a new " + type + " for this product ");
+            int userInp = input.nextInt();
+            product.setStockCount(userInp);
+        }
+        System.out.println("The product " + type + " has been changed successfully!");
+        Menu.showAdminUpdateProductMenu(product.getProductID());
     }
 
     public static void showRegisteredCustomers() {
@@ -93,6 +140,11 @@ public class AdminMethods {
             }
         } while (true);
         Menu.showAdminMainMenu();
+    }
+
+    public static void showHeader(String type) {
+        System.out.println("=============== ADMIN " + type.toUpperCase() + " PRODUCT PAGE ===============");
+        System.out.println("Please enter the ID of the product to " + type);
     }
 
 }
