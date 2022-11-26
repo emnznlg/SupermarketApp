@@ -1,9 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class CustomerPojo {
 
     public String email;
     public String name;
     private String password;
     private String phoneNumber;
+    private double totalSpending;
 
     public CustomerPojo(String email, String name, String password, String phoneNumber) {
         this.email = email;
@@ -26,6 +31,14 @@ public class CustomerPojo {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public double getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(double totalSpending) {
+        this.totalSpending = totalSpending;
     }
 
     @Override

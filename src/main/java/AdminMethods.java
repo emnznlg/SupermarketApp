@@ -92,6 +92,18 @@ public class AdminMethods {
     }
 
     public static void showRegisteredCustomers() {
+        System.out.println("=============== ADMIN SHOW REGISTERED CUSTOMERS PAGE ===============");
+        if (CustomerMethods.customerInfoDatabase.isEmpty()) {
+            System.out.println("There are no registered customers!");
+        } else {
+            System.out.println("---------------------------# REGISTERED CUSTOMERS LIST #--------------------------------------------------------");
+            System.out.println("Name                  Phone Number                  Email" +
+                    "\n-----------------------------------------------------------------------------------------------------------------");
+            for (CustomerPojo w : CustomerMethods.registeredCustomerInfo) {
+                System.out.printf("%-20s %-18s %-20s\n", w.name, w.getPhoneNumber(), w.email);
+            }
+        }
+        Menu.showAdminSubMenu();
     }
 
     public static void showRevenue() {

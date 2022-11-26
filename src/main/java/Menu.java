@@ -74,7 +74,7 @@ public class Menu {
                 AdminMethods.showRegisteredCustomers();
                 break;
             } else if (userInp.equals("6")) {
-                AdminMethods.showRevenue();
+                AdminMethods.showRevenue(); //Sonra yapilacak...
                 break;
             } else if (userInp.equals("7")) {
                 showAdminMainMenu();
@@ -173,10 +173,10 @@ public class Menu {
         String userInp = input.next().toUpperCase();
         do {
             if (userInp.equals("1")) {
-                CustomerMethods.shop();
+                CustomerMethods.shop(customer);
                 break;
             } else if (userInp.equals("2")) {
-                CustomerMethods.showCart();
+                CustomerMethods.showCart(customer);
                 break;
             } else if (userInp.equals("3")) {
                 CustomerMethods.showReturnablePurchases();
