@@ -3,6 +3,7 @@ import java.util.*;
 public class AdminMethods {
     static Scanner input = new Scanner(System.in);
 
+    static double totalRev = 0;
     static Map<String, String> adminsDatabase = new HashMap<>();
     static Map<Integer, ProductPojo> productsDatabase = new HashMap<>();
     static Collection<ProductPojo> allProducts = productsDatabase.values();
@@ -107,6 +108,8 @@ public class AdminMethods {
     }
 
     public static void showRevenue() {
+        System.out.println("Your total revenue is: " + totalRev);
+        Menu.showAdminSubMenu();
     }
 
     public static void addAdmins() {

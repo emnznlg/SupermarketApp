@@ -115,6 +115,7 @@ public class CustomerMethods {
             System.out.println("Please press 1 for add the product to the cart, or please press any key to cancel and go to sub menu.");
             String userInp = input.next();
             if (userInp.equals("1")) {
+
                 double totalCost = calculateTotalCost(quantity, productID);
                 CartPojo productsInTheCart = new CartPojo(chosenProductName, totalCost, quantity);
                 cartList.add(productsInTheCart);
@@ -141,7 +142,10 @@ public class CustomerMethods {
     }
 
     public static double calculateTotalCost(int qty, int id) {
-        return AdminMethods.productsDatabase.get(id).getPrice() * qty;
+        double totalCost = AdminMethods.productsDatabase.get(id).getPrice() * qty;
+        AdminMethods.totalRev += totalCost;
+        return totalCost;
+
     }
 
     public static void showCart(CustomerPojo customer) { // Her karta eklemede yeni bir cart objesi olusmali ve bunlari Map'a kaydetmeli...
@@ -152,7 +156,7 @@ public class CustomerMethods {
                 "\n-----------------------------------------------------------------------------------------------------------------");
         for (ArrayList<CartPojo> w : customerCartInfoList) {
             for (CartPojo s : w) {
-                System.out.printf("%-12s %-21s %-21s\n", s.productName, s.quantity, s.totalCost);
+                System.out.printf("%-22s %-22s %-22s\n", s.productName, s.quantity, s.totalCost);
             }
         }
         System.out.println("Please press '1' to complete the purchase, or please any button to return the sub menu");
@@ -161,67 +165,11 @@ public class CustomerMethods {
             System.out.println("Thank you for you purchase! You packages will be sent soon!");
             cartList.clear();
             customerCartInfo.clear();
-            customerCartInfoList.clear();//Burada cart temizlenmedi...
+            customerCartInfoList.clear();
         }
         Menu.showCustomerSubMenu(customer);
     }
 
-    public static void showReturnablePurchases() {
-
-    }
-
-    public static void showPastPurchases() {
-
-    }
-
-    public static void showMyInformationMenu() {
-
-    }
 
 
 }
-
-/*
-
-
-        if (AdminMethods.productsDatabase.containsKey(productID)) {
-            System.out.println("Please enter the quantity");
-            int quantity = input.nextInt();
-            double productCost = AdminMethods.productsDatabase.get(productID).getPrice();
-            double totalCost = productCost * quantity;
-            System.out.println("Total Cost is: " + totalCost);
-            System.out.println("Please press '1' if you want to add product to your cart, or please press '2' to shop a new product");
-            String userInp = input.next();
-            CartPojo cart = new CartPojo(AdminMethods.productsDatabase.get(productID).name, totalCost, quantity);
-            do {
-                if (userInp.equals("1")) {
-                    customerCartInfo.put(customer.email, cart);
-                    System.out.println("Product added successfully to cart!");
-                    System.out.println("Please press '1' to shop more products, or press '2' to go to cart page");
-                    String userInpCart = input.next();
-                    do {
-                        if (userInpCart.equals("1")) {
-                            shop(customer);
-                            break;
-                        } else if (userInpCart.equals("2")) {
-                            showCart(customer);
-                            break;
-                        } else {
-                            System.out.println("Invalid user input. Please try again...");
-                            userInpCart = input.next();
-                        }
-                    } while (true);
-                } else if (userInp.equals("2")) {
-                    shop(customer);
-                    break;
-                } else {
-                    System.out.println("Invalid user input. Please try again...");
-                    userInp = input.next();
-                }
-            } while (true);
-
-        } else {
-            System.out.println("Invalid product ID. Please enter the ID of the product you want to purchase");
-            shop(customer);
-        }
- */

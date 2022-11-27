@@ -54,7 +54,7 @@ public class Menu {
     public static void showAdminSubMenu() {
         System.out.println("=============== ADMIN SUB-MENU PAGE ===============");
         System.out.println("1. Add Product\n2. List Product\n3. Remove Product\n4. Update Product\n" +
-                "5. See Registered Customers\n6. Show Total Revenue\n7. Return Admin-Main Menu\nQ. QUIT");
+                "5. Show Total Revenue\n6. Return Admin-Main Menu\n7. Show Registered Customers\nQ. QUIT");
         System.out.println("Please select the action you want:");
         String userInp = input.next().toUpperCase();
         do {
@@ -71,13 +71,13 @@ public class Menu {
                 AdminMethods.updateProduct("Update");
                 break;
             } else if (userInp.equals("5")) {
-                AdminMethods.showRegisteredCustomers();
-                break;
-            } else if (userInp.equals("6")) {
                 AdminMethods.showRevenue(); //Sonra yapilacak...
                 break;
-            } else if (userInp.equals("7")) {
+            } else if (userInp.equals("6")) {
                 showAdminMainMenu();
+                break;
+            } else if (userInp.equals("7")) {
+                AdminMethods.showRegisteredCustomers();
                 break;
             } else if (userInp.equals("Q")) {
                 System.out.println("Thank you for using EMIN's ONLINE SHOPPING APP!");
@@ -167,8 +167,7 @@ public class Menu {
     public static void showCustomerSubMenu(CustomerPojo customer) {
         System.out.println("=============== CUSTOMER SUB-MENU PAGE ===============");
         System.out.println("Hello " + customer.name);
-        System.out.println("1. Shop\n2. Cart\n3. Return\n4. Past Purchases\n5. My Information\n" +
-                "6. Return Customer-Main Menu\nQ. QUIT");
+        System.out.println("1. Shop\n2. Cart\n3. Return Customer-Main Menu\nQ. QUIT");
         System.out.println("Please select the action you want:");
         String userInp = input.next().toUpperCase();
         do {
@@ -179,15 +178,6 @@ public class Menu {
                 CustomerMethods.showCart(customer);
                 break;
             } else if (userInp.equals("3")) {
-                CustomerMethods.showReturnablePurchases();
-                break;
-            } else if (userInp.equals("4")) {
-                CustomerMethods.showPastPurchases();
-                break;
-            } else if (userInp.equals("5")) {
-                CustomerMethods.showMyInformationMenu();
-                break;
-            } else if (userInp.equals("6")) {
                 Menu.showCustomerMainMenu();
                 break;
             } else if (userInp.equals("Q")) {
